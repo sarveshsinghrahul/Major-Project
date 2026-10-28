@@ -16,6 +16,13 @@ class Settings(BaseSettings):
 
     cors_origins: list[str] = ["http://localhost:5173"]
 
+    # Personalization thresholds (synopsis §5). Tune these after the pilot.
+    level_intermediate_min: float = 0.4  # overall score below this -> beginner
+    level_advanced_min: float = 0.75  # overall score above this -> advanced
+    diagnostic_weight: float = 0.8  # rest of the overall score comes from self-rated familiarity
+    mastered_min: float = 0.8  # topic mastery at or above this counts as mastered
+    prerequisite_ready_min: float = 0.6  # every prerequisite needs this much mastery to unlock a topic
+
 
 @lru_cache
 def get_settings() -> Settings:

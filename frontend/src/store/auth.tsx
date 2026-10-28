@@ -7,6 +7,8 @@ interface AuthState {
   login: (email: string, password: string) => Promise<void>;
   register: (data: { name: string; email: string; password: string; consent_analytics: boolean }) => Promise<void>;
   logout: () => void;
+  /** Re-fetch the user, e.g. after the diagnostic sets their level. */
+  refreshUser: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthState | null>(null);
@@ -40,7 +42,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null);
   }, []);
 
-  const value = useMemo(() => ({ user, loading, login, register, logout }), [user, loading, login, register, logout]);
+  const refreshUser = useCallback(async () => {
+    setUser(await authApi.me());
+  }, []);
+
+  const value = useMemo(
+    () => ({ user, loading, login, register, logout, refreshUser }),
+    [user, loading, login, register, logout, refreshUser],
+  );
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 

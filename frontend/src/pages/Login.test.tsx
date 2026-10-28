@@ -44,7 +44,7 @@ describe("login flow", () => {
       vi.fn(async (url: string) => {
         if (url.endsWith("/auth/login")) return jsonResponse(200, { access_token: "a", refresh_token: "r" });
         if (url.endsWith("/auth/me"))
-          return jsonResponse(200, { id: 1, name: "Asha", email: "a@example.com", role: "student", level: null });
+          return jsonResponse(200, { id: 1, name: "Asha", email: "a@example.com", role: "student", level: "beginner" });
         return jsonResponse(200, []);
       }),
     );
@@ -52,6 +52,6 @@ describe("login flow", () => {
     fireEvent.change(screen.getByLabelText("Email"), { target: { value: "a@example.com" } });
     fireEvent.change(screen.getByLabelText("Password"), { target: { value: "s3cret-pass" } });
     fireEvent.click(screen.getByRole("button", { name: "Log in" }));
-    expect(await screen.findByRole("heading", { name: "Welcome, Asha" })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { name: "Welcome back, Asha" })).toBeInTheDocument();
   });
 });

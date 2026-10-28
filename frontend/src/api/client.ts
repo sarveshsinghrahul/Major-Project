@@ -38,6 +38,75 @@ export interface Topic {
   prerequisite_ids: number[];
 }
 
+export type Format = "notes" | "video" | "link" | "practice";
+export type TopicStatus = "locked" | "available" | "in_progress" | "mastered";
+
+export interface ProfileIn {
+  goal: string | null;
+  weekly_hours_available: number;
+  preferred_days: number[]; // 0 = Monday
+  preferred_formats: Format[];
+  self_rated_familiarity: number; // 0..1
+}
+
+export interface Profile extends ProfileIn {
+  level: Level | null;
+  level_score: number | null;
+  level_reason: string | null;
+  onboarding_step: number; // 0 new, 1 profile saved, 2 diagnostic done
+}
+
+export interface QuizQuestion {
+  id: number;
+  topic_id: number;
+  text: string;
+  options: string[];
+}
+
+export interface Quiz {
+  id: number;
+  subject_id: number;
+  kind: string;
+  questions: QuizQuestion[];
+}
+
+export interface AnswerIn {
+  question_id: number;
+  chosen: number | null; // null = "I don't know"
+  time_taken_sec: number;
+}
+
+export interface QuestionFeedback {
+  question_id: number;
+  topic_id: number;
+  text: string;
+  options: string[];
+  chosen: number | null;
+  correct_answer: number;
+  is_correct: boolean;
+  explanation: string;
+}
+
+export interface TopicMastery {
+  topic_id: number;
+  name: string;
+  mastery: number;
+  status: TopicStatus;
+  reason: string;
+}
+
+export interface DiagnosticResult {
+  quiz_id: number;
+  score: number;
+  overall: number;
+  level: Level;
+  level_reason: string;
+  correct: number;
+  total: number;
+  topics: TopicMastery[];
+  feedback: QuestionFeedback[];
+}
+
 export class ApiError extends Error {
   constructor(
     public status: number,
@@ -116,4 +185,18 @@ export const authApi = {
 export const contentApi = {
   subjects: () => api<Subject[]>("/subjects"),
   topics: (subjectId: number) => api<Topic[]>(`/subjects/${subjectId}/topics`),
+  mastery: (subjectId: number) => api<TopicMastery[]>(`/subjects/${subjectId}/mastery`),
+};
+
+export const onboardingApi = {
+  profile: () => api<Profile>("/onboarding/profile"),
+  saveProfile: (data: ProfileIn) => api<Profile>("/onboarding/profile", { method: "PUT", body: JSON.stringify(data) }),
+  startDiagnostic: (subjectId: number) =>
+    api<Quiz>("/onboarding/diagnostic", { method: "POST", body: JSON.stringify({ subject_id: subjectId }) }),
+  submitDiagnostic: (quizId: number, answers: AnswerIn[]) =>
+    api<DiagnosticResult>(`/onboarding/diagnostic/${quizId}/submit`, {
+      method: "POST",
+      body: JSON.stringify({ answers }),
+    }),
+  latestDiagnostic: () => api<DiagnosticResult>("/onboarding/diagnostic/latest"),
 };

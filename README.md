@@ -69,7 +69,8 @@ uv run alembic upgrade head
 - [x] Auth (register / login / refresh / me) with student, instructor and admin roles
 - [x] Subjects, topics with a prerequisite DAG, resources, question bank, and the DSA seed (16 topics, 48 questions)
 - [x] React shell: login, register, protected home page with the topic roadmap
-- [ ] Onboarding wizard and diagnostic quiz, then level classification
+- [x] Onboarding wizard (goals, availability, formats, self-rating), diagnostic quiz with resume, level classification, initial topic mastery with explanations
+- [x] Learning-event log, quiz and response storage (inputs for the ML layer)
 - [ ] Learner model, path builder, recommender, scheduler
 - [ ] Quizzes, gamification, dashboards
 - [ ] ML layer, evaluation

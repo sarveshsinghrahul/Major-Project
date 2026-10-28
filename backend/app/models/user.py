@@ -1,7 +1,7 @@
 import enum
 from datetime import datetime, timezone
 
-from sqlalchemy import JSON, Boolean, DateTime, Enum, Float, ForeignKey, Integer, String
+from sqlalchemy import JSON, Boolean, DateTime, Enum, Float, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db import Base
@@ -50,7 +50,10 @@ class LearnerProfile(Base):
     self_rated_familiarity: Mapped[float] = mapped_column(Float, default=0.0)
     consent_analytics: Mapped[bool] = mapped_column(Boolean, default=False)
     level: Mapped[Level | None] = mapped_column(Enum(Level))
+    level_score: Mapped[float | None] = mapped_column(Float)  # 0..1 overall score behind `level`
+    level_reason: Mapped[str | None] = mapped_column(Text)
     pace_factor: Mapped[float] = mapped_column(Float, default=1.0)
+    # 0 = new, 1 = profile saved, 2 = diagnostic done
     onboarding_step: Mapped[int] = mapped_column(Integer, default=0)
 
     user: Mapped[User] = relationship(back_populates="profile")

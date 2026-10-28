@@ -4,6 +4,8 @@ from sqlalchemy import select
 from app.deps import CurrentUser, DbSession
 from app.models import Subject, Topic
 from app.schemas.content import ResourceOut, SubjectOut, TopicOut
+from app.schemas.onboarding import TopicMasteryOut
+from app.services import learner_model
 from app.services.graph import topological_order
 
 router = APIRouter(tags=["content"])
@@ -52,3 +54,18 @@ def list_resources(topic_id: int, db: DbSession, _: CurrentUser):
     if topic is None:
         raise HTTPException(status_code=404, detail="Topic not found")
     return topic.resources
+
+
+@router.get("/subjects/{subject_id}/mastery", response_model=list[TopicMasteryOut])
+def subject_mastery(subject_id: int, db: DbSession, user: CurrentUser) -> list[TopicMasteryOut]:
+    """The current user's mastery and status for every topic, in prerequisite order."""
+    subject = db.get(Subject, subject_id)
+    if subject is None:
+        raise HTTPException(status_code=404, detail="Subject not found")
+    states = learner_model.mastery_states(db, user, subject.topics)
+    by_id = {t.id: t for t in subject.topics}
+    order = topological_order({t.id: [p.id for p in t.prerequisites] for t in subject.topics})
+    return [
+        TopicMasteryOut(topic_id=i, name=by_id[i].name, mastery=states[i].mastery, status=states[i].status, reason=states[i].reason)
+        for i in order
+    ]
