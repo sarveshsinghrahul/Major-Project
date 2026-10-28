@@ -1,0 +1,655 @@
+# Seed content for the Data Structures & Algorithms subject.
+#
+# Questions list the correct option and the wrong options separately; the loader
+# shuffles them deterministically, so the correct answer is not always option A.
+# Resources here are placeholders (own short notes + Wikipedia). Replace or extend
+# them with curated material (NPTEL, GeeksforGeeks, YouTube lectures) as the
+# question bank grows toward ~15 questions per topic.
+
+subject:
+  slug: dsa
+  name: Data Structures & Algorithms
+  description: Core data structures and algorithm design techniques for B.Tech IT/CS.
+
+topics:
+  - slug: complexity
+    name: Complexity & Big-O
+    description: Measuring how running time and memory grow with input size.
+    difficulty: 1
+    est_minutes: 60
+    prerequisites: []
+    resources:
+      - type: notes
+        title: Big-O in five minutes
+        level: beginner
+        est_minutes: 10
+        body: |
+          Big-O describes an upper bound on growth. Drop constants and lower-order terms:
+          3n^2 + 5n + 7 is O(n^2). Common classes in increasing order: O(1), O(log n), O(n),
+          O(n log n), O(n^2), O(2^n).
+      - type: link
+        title: Big O notation (Wikipedia)
+        url: https://en.wikipedia.org/wiki/Big_O_notation
+        level: intermediate
+        est_minutes: 25
+    questions:
+      - text: What is the time complexity of accessing the element at a given index in an array?
+        correct: O(1)
+        wrong: [O(log n), O(n), O(n^2)]
+        explanation: Arrays are stored contiguously, so the address of any index is computed directly.
+        difficulty: 1
+        diagnostic: true
+      - text: A loop runs with i = 1, 2, 4, 8, ... while i < n. How many iterations does it make, asymptotically?
+        correct: O(log n)
+        wrong: [O(n), O(n log n), O(sqrt(n))]
+        explanation: i doubles each time, so it reaches n after about log2(n) steps.
+        difficulty: 2
+        diagnostic: true
+      - text: Which of these grows fastest as n becomes large?
+        correct: 2^n
+        wrong: [n^3, n log n, n^2 log n]
+        explanation: Exponential functions eventually dominate every polynomial.
+        difficulty: 3
+        diagnostic: false
+
+  - slug: arrays
+    name: Arrays
+    description: Contiguous storage, indexing, two-pointer and prefix-sum techniques.
+    difficulty: 1
+    est_minutes: 90
+    prerequisites: [complexity]
+    resources:
+      - type: notes
+        title: Array essentials
+        level: beginner
+        est_minutes: 10
+        body: |
+          Index access is O(1); inserting or deleting in the middle is O(n) because elements
+          shift. Two pointers and prefix sums turn many O(n^2) array problems into O(n).
+      - type: link
+        title: Array (data structure) (Wikipedia)
+        url: https://en.wikipedia.org/wiki/Array_(data_structure)
+        level: intermediate
+        est_minutes: 20
+    questions:
+      - text: Inserting an element at the beginning of an array of n elements (shifting the rest) takes
+        correct: O(n)
+        wrong: [O(1), O(log n), O(n log n)]
+        explanation: Every existing element must move one position to the right.
+        difficulty: 1
+        diagnostic: true
+      - text: Which technique checks whether a sorted array has two elements summing to a target in O(n)?
+        correct: Two pointers moving inward from both ends
+        wrong: [Nested loops over all pairs, Binary search for every pair, Sorting the array again]
+        explanation: Move the left pointer up when the sum is too small and the right pointer down when it is too large.
+        difficulty: 3
+        diagnostic: true
+      - text: After O(n) preprocessing with prefix sums, a range-sum query takes
+        correct: O(1)
+        wrong: [O(n), O(log n), O(n^2)]
+        explanation: sum(l..r) = prefix[r+1] - prefix[l].
+        difficulty: 2
+        diagnostic: false
+
+  - slug: strings
+    name: Strings
+    description: String representation, immutability, and common string algorithms.
+    difficulty: 2
+    est_minutes: 75
+    prerequisites: [arrays]
+    resources:
+      - type: notes
+        title: Working with strings
+        level: beginner
+        est_minutes: 10
+        body: |
+          Strings in Java and Python are immutable: "modifying" one creates a new string.
+          Use a list/StringBuilder when building strings in a loop. Frequency counts
+          (hash maps or 26-length arrays) solve many anagram and palindrome problems.
+      - type: link
+        title: String (computer science) (Wikipedia)
+        url: https://en.wikipedia.org/wiki/String_(computer_science)
+        level: intermediate
+        est_minutes: 20
+    questions:
+      - text: In Java and Python, strings are
+        correct: Immutable
+        wrong: [Mutable, Stored as linked lists of characters, Limited to ASCII characters]
+        explanation: Operations that appear to change a string return a new string object.
+        difficulty: 1
+        diagnostic: true
+      - text: Two strings are anagrams if
+        correct: They contain the same characters with the same counts
+        wrong: [One is the reverse of the other, They have the same length, They share a common prefix]
+        explanation: Compare character frequency counts, or compare the sorted strings.
+        difficulty: 1
+        diagnostic: true
+      - text: Checking whether a string of length n is a palindrome with two pointers takes
+        correct: O(n)
+        wrong: [O(n^2), O(log n), O(1)]
+        explanation: Each pointer moves at most n/2 steps.
+        difficulty: 2
+        diagnostic: false
+
+  - slug: recursion
+    name: Recursion
+    description: Base cases, recursive cases, and the call stack.
+    difficulty: 2
+    est_minutes: 90
+    prerequisites: [arrays]
+    resources:
+      - type: notes
+        title: Thinking recursively
+        level: beginner
+        est_minutes: 15
+        body: |
+          A recursive function solves a problem by calling itself on a smaller input.
+          It needs a base case that stops the recursion and a recursive case that makes
+          progress toward it. Each call uses stack space until it returns.
+      - type: link
+        title: Recursion (computer science) (Wikipedia)
+        url: https://en.wikipedia.org/wiki/Recursion_(computer_science)
+        level: intermediate
+        est_minutes: 25
+    questions:
+      - text: Every correct recursive function must have
+        correct: A base case that stops the recursion
+        wrong: [A loop, A global variable, At least two recursive calls]
+        explanation: Without a reachable base case the calls never stop.
+        difficulty: 1
+        diagnostic: true
+      - text: What is the time complexity of naive recursive Fibonacci, fib(n) = fib(n-1) + fib(n-2)?
+        correct: Exponential, O(2^n)
+        wrong: [O(n), O(n log n), O(log n)]
+        explanation: The same subproblems are recomputed many times, so the call tree grows exponentially.
+        difficulty: 3
+        diagnostic: true
+      - text: What happens if a recursive function never reaches its base case?
+        correct: The program runs out of stack space (stack overflow / recursion depth error)
+        wrong: [It returns 0, It runs in O(1) time, The compiler turns it into a loop]
+        explanation: Every pending call occupies a stack frame until memory runs out.
+        difficulty: 2
+        diagnostic: false
+
+  - slug: sorting
+    name: Sorting
+    description: Comparison sorts, divide and conquer, and stability.
+    difficulty: 3
+    est_minutes: 120
+    prerequisites: [recursion]
+    resources:
+      - type: notes
+        title: Sorting cheat sheet
+        level: beginner
+        est_minutes: 15
+        body: |
+          Bubble/selection/insertion sort: O(n^2). Merge sort: O(n log n) always, stable,
+          needs O(n) extra space. Quicksort: O(n log n) on average, O(n^2) worst case,
+          in place. Heap sort: O(n log n), in place, not stable.
+      - type: link
+        title: Sorting algorithm (Wikipedia)
+        url: https://en.wikipedia.org/wiki/Sorting_algorithm
+        level: intermediate
+        est_minutes: 30
+    questions:
+      - text: What is the worst-case time complexity of merge sort?
+        correct: O(n log n)
+        wrong: [O(n^2), O(n), O(log n)]
+        explanation: It always splits in half (log n levels) and merges each level in O(n).
+        difficulty: 2
+        diagnostic: true
+      - text: Quicksort hits its O(n^2) worst case when
+        correct: Pivot choices repeatedly split the array very unevenly
+        wrong: [All elements are distinct, The array length is a power of two, The array is stored in memory contiguously]
+        explanation: For example, always picking the first element as pivot on already-sorted input.
+        difficulty: 3
+        diagnostic: true
+      - text: Which of these sorting algorithms is stable in its standard form?
+        correct: Merge sort
+        wrong: [Standard in-place quicksort, Heap sort, Selection sort]
+        explanation: Merge sort takes from the left half on ties, preserving the original order of equal keys.
+        difficulty: 2
+        diagnostic: false
+
+  - slug: searching
+    name: Searching & Binary Search
+    description: Linear search, binary search, and its lower/upper-bound variants.
+    difficulty: 2
+    est_minutes: 60
+    prerequisites: [sorting]
+    resources:
+      - type: notes
+        title: Binary search without bugs
+        level: beginner
+        est_minutes: 10
+        body: |
+          Keep an invariant: the answer is always inside [lo, hi]. Compute
+          mid = lo + (hi - lo) // 2 and discard the half that cannot contain the answer.
+          Each step halves the range, so it takes O(log n) steps.
+      - type: link
+        title: Binary search (Wikipedia)
+        url: https://en.wikipedia.org/wiki/Binary_search
+        level: intermediate
+        est_minutes: 20
+    questions:
+      - text: Binary search requires the array to be
+        correct: Sorted
+        wrong: [Unsorted, Of even length, Free of negative numbers]
+        explanation: Discarding half the range is only valid when the order tells you which half holds the target.
+        difficulty: 1
+        diagnostic: true
+      - text: About how many comparisons does binary search need in the worst case on 1,024 sorted elements?
+        correct: About 10 to 11
+        wrong: [About 512, "About 1,024", About 32]
+        explanation: log2(1024) = 10.
+        difficulty: 2
+        diagnostic: true
+      - text: To find the first index whose value is >= x in a sorted array, you use
+        correct: The lower-bound variant of binary search
+        wrong: [Linear search from the end, A hash table lookup, Bubble sort followed by indexing]
+        explanation: Lower bound keeps searching left after finding a candidate, giving the first position in O(log n).
+        difficulty: 3
+        diagnostic: false
+
+  - slug: linked-lists
+    name: Linked Lists
+    description: Singly and doubly linked lists, pointer manipulation.
+    difficulty: 2
+    est_minutes: 90
+    prerequisites: [arrays]
+    resources:
+      - type: notes
+        title: Linked list basics
+        level: beginner
+        est_minutes: 10
+        body: |
+          Each node stores a value and a pointer to the next node. Insertion and deletion
+          at a known node are O(1); reaching the k-th node is O(k). Draw the pointers
+          before you code any manipulation.
+      - type: link
+        title: Linked list (Wikipedia)
+        url: https://en.wikipedia.org/wiki/Linked_list
+        level: intermediate
+        est_minutes: 20
+    questions:
+      - text: Accessing the k-th element of a singly linked list takes
+        correct: O(k)
+        wrong: [O(1), O(log k), O(k^2)]
+        explanation: You must follow k next-pointers from the head.
+        difficulty: 1
+        diagnostic: true
+      - text: Inserting a node right after a node you already have a reference to takes
+        correct: O(1)
+        wrong: [O(n), O(log n), O(n^2)]
+        explanation: Only two pointers change; no elements move.
+        difficulty: 2
+        diagnostic: true
+      - text: Floyd's tortoise-and-hare technique is used to detect
+        correct: A cycle in a linked list
+        wrong: [The middle element of an array, Duplicate keys in a hash table, The height of a tree]
+        explanation: A fast pointer moving two steps eventually meets a slow pointer if there is a cycle.
+        difficulty: 3
+        diagnostic: false
+
+  - slug: stacks
+    name: Stacks
+    description: LIFO structure and its applications.
+    difficulty: 2
+    est_minutes: 60
+    prerequisites: [linked-lists]
+    resources:
+      - type: notes
+        title: Stacks in practice
+        level: beginner
+        est_minutes: 10
+        body: |
+          push and pop both work at the top in O(1). Stacks power function calls,
+          undo, balanced-bracket checking and expression evaluation.
+      - type: link
+        title: Stack (abstract data type) (Wikipedia)
+        url: https://en.wikipedia.org/wiki/Stack_(abstract_data_type)
+        level: intermediate
+        est_minutes: 20
+    questions:
+      - text: A stack removes elements in which order?
+        correct: Last in, first out (LIFO)
+        wrong: ["First in, first out (FIFO)", Sorted order, Random order]
+        explanation: pop always returns the most recently pushed element.
+        difficulty: 1
+        diagnostic: true
+      - text: Which problem is naturally solved with a stack?
+        correct: Checking whether parentheses are balanced
+        wrong: [Level-order traversal of a tree, Round-robin CPU scheduling, Finding a minimum spanning tree]
+        explanation: Push each opening bracket and pop when the matching closing bracket appears.
+        difficulty: 2
+        diagnostic: true
+      - text: What does the postfix expression "3 4 + 2 *" evaluate to?
+        correct: "14"
+        wrong: ["11", "10", "24"]
+        explanation: 3 + 4 = 7, then 7 * 2 = 14.
+        difficulty: 3
+        diagnostic: false
+
+  - slug: queues
+    name: Queues
+    description: FIFO structure, circular buffers and deques.
+    difficulty: 2
+    est_minutes: 60
+    prerequisites: [stacks]
+    resources:
+      - type: notes
+        title: Queues and deques
+        level: beginner
+        est_minutes: 10
+        body: |
+          enqueue at the rear and dequeue at the front, both in O(1) with a circular
+          array or linked list. A deque supports insertion and deletion at both ends.
+      - type: link
+        title: Queue (abstract data type) (Wikipedia)
+        url: https://en.wikipedia.org/wiki/Queue_(abstract_data_type)
+        level: intermediate
+        est_minutes: 20
+    questions:
+      - text: A queue removes elements in which order?
+        correct: First in, first out (FIFO)
+        wrong: ["Last in, first out (LIFO)", Sorted order, Random order]
+        explanation: The element waiting longest is served first.
+        difficulty: 1
+        diagnostic: true
+      - text: Implementing a queue with a circular array avoids
+        correct: Shifting all elements on every dequeue
+        wrong: [Needing a front index, Storing the elements at all, Any possibility of the queue becoming full]
+        explanation: Front and rear indices wrap around instead of moving data.
+        difficulty: 2
+        diagnostic: true
+      - text: A deque (double-ended queue) allows
+        correct: Insertion and deletion at both ends
+        wrong: [Insertion only at the rear and deletion only in the middle, Only sorted insertion, Deletion only from the middle]
+        explanation: It generalizes both stacks and queues.
+        difficulty: 2
+        diagnostic: false
+
+  - slug: hashing
+    name: Hashing
+    description: Hash functions, hash tables and collision handling.
+    difficulty: 3
+    est_minutes: 75
+    prerequisites: [arrays]
+    resources:
+      - type: notes
+        title: Hash tables in brief
+        level: beginner
+        est_minutes: 10
+        body: |
+          A hash function maps a key to a bucket index. With a good hash function and a
+          bounded load factor, insert, delete and lookup are O(1) on average. Collisions are
+          handled by chaining (lists per bucket) or open addressing (probing other slots).
+      - type: link
+        title: Hash table (Wikipedia)
+        url: https://en.wikipedia.org/wiki/Hash_table
+        level: intermediate
+        est_minutes: 25
+    questions:
+      - text: The average-case lookup time in a well-designed hash table is
+        correct: O(1)
+        wrong: [O(log n), O(n), O(n log n)]
+        explanation: The hash function jumps straight to a bucket holding few keys on average.
+        difficulty: 1
+        diagnostic: true
+      - text: A hash collision occurs when
+        correct: Two different keys map to the same bucket
+        wrong: [The same key is inserted twice, The table is empty, A key is deleted]
+        explanation: Collisions are unavoidable when there are more possible keys than buckets.
+        difficulty: 2
+        diagnostic: true
+      - text: With open addressing and linear probing, a collision is resolved by
+        correct: Checking the following slots in order until a free one is found
+        wrong: [Storing a linked list in the bucket, Rebuilding the whole table on every insert, Rejecting the new key]
+        explanation: Chaining uses per-bucket lists; open addressing stores everything in the array itself.
+        difficulty: 3
+        diagnostic: false
+
+  - slug: trees
+    name: Trees & Traversals
+    description: Tree terminology, binary trees and traversal orders.
+    difficulty: 3
+    est_minutes: 90
+    prerequisites: [recursion, linked-lists]
+    resources:
+      - type: notes
+        title: Binary tree traversals
+        level: beginner
+        est_minutes: 15
+        body: |
+          Pre-order: root, left, right. In-order: left, root, right. Post-order: left, right,
+          root. Level-order visits nodes level by level using a queue. A tree with n nodes
+          has n - 1 edges.
+      - type: link
+        title: Tree (abstract data type) (Wikipedia)
+        url: https://en.wikipedia.org/wiki/Tree_(abstract_data_type)
+        level: intermediate
+        est_minutes: 25
+    questions:
+      - text: A tree with n nodes has how many edges?
+        correct: n - 1
+        wrong: [n, n + 1, 2n]
+        explanation: Every node except the root has exactly one edge to its parent.
+        difficulty: 1
+        diagnostic: true
+      - text: Which traversal visits the left subtree, then the root, then the right subtree?
+        correct: In-order
+        wrong: [Pre-order, Post-order, Level-order]
+        explanation: The root is visited "in" between its two subtrees.
+        difficulty: 2
+        diagnostic: true
+      - text: What is the maximum number of nodes in a binary tree of height h (a single root has height 0)?
+        correct: 2^(h+1) - 1
+        wrong: [2^h, h^2, 2h + 1]
+        explanation: Level i holds at most 2^i nodes; summing levels 0..h gives 2^(h+1) - 1.
+        difficulty: 3
+        diagnostic: false
+
+  - slug: bst
+    name: Binary Search Trees
+    description: BST property, operations and balancing.
+    difficulty: 3
+    est_minutes: 90
+    prerequisites: [trees, searching]
+    resources:
+      - type: notes
+        title: BST operations
+        level: beginner
+        est_minutes: 15
+        body: |
+          Every key in the left subtree is smaller than the node and every key in the right
+          subtree is larger. Search, insert and delete take O(h); h is O(log n) when the tree
+          is balanced but can degrade to O(n).
+      - type: link
+        title: Binary search tree (Wikipedia)
+        url: https://en.wikipedia.org/wiki/Binary_search_tree
+        level: intermediate
+        est_minutes: 25
+    questions:
+      - text: An in-order traversal of a binary search tree outputs the keys in
+        correct: Ascending sorted order
+        wrong: [Reverse insertion order, Random order, Level order]
+        explanation: Left subtree (smaller keys), node, right subtree (larger keys).
+        difficulty: 2
+        diagnostic: true
+      - text: Inserting 1, 2, 3, ..., n in that order into an unbalanced BST makes search take
+        correct: O(n)
+        wrong: [O(log n), O(1), O(n log n)]
+        explanation: Each key becomes the right child of the previous one, so the tree is a linked list.
+        difficulty: 3
+        diagnostic: true
+      - text: Self-balancing trees such as AVL and Red-Black trees guarantee
+        correct: O(log n) height
+        wrong: [O(1) search, That keys are stored in insertion order, That no rotations are ever needed]
+        explanation: Rotations after updates keep the height logarithmic.
+        difficulty: 4
+        diagnostic: false
+
+  - slug: heaps
+    name: Heaps & Priority Queues
+    description: Binary heaps, heapify and priority queues.
+    difficulty: 3
+    est_minutes: 75
+    prerequisites: [trees]
+    resources:
+      - type: notes
+        title: Heap basics
+        level: beginner
+        est_minutes: 10
+        body: |
+          A min-heap is a complete binary tree where each parent is <= its children, stored
+          in an array. Peek-min is O(1); insert and extract-min are O(log n). Heaps implement
+          priority queues.
+      - type: link
+        title: Heap (data structure) (Wikipedia)
+        url: https://en.wikipedia.org/wiki/Heap_(data_structure)
+        level: intermediate
+        est_minutes: 25
+    questions:
+      - text: In a min-heap, the smallest element is stored at
+        correct: The root
+        wrong: [The last leaf, Any leaf, The middle of the array]
+        explanation: The heap property makes every parent no larger than its children.
+        difficulty: 2
+        diagnostic: true
+      - text: Building a heap from n unsorted elements with bottom-up heapify takes
+        correct: O(n)
+        wrong: [O(n log n), O(log n), O(n^2)]
+        explanation: Most nodes are near the bottom and sift down only a few levels; the total work sums to O(n).
+        difficulty: 4
+        diagnostic: true
+      - text: For a heap stored in a 0-indexed array, the children of index i are at
+        correct: 2i + 1 and 2i + 2
+        wrong: [i + 1 and i + 2, 2i and 2i + 1, i / 2 and i / 2 + 1]
+        explanation: The 0-indexed layout puts the left child at 2i + 1 and the right child at 2i + 2.
+        difficulty: 2
+        diagnostic: false
+
+  - slug: graphs
+    name: Graphs, BFS & DFS
+    description: Graph representations and traversal algorithms.
+    difficulty: 4
+    est_minutes: 120
+    prerequisites: [trees, queues]
+    resources:
+      - type: notes
+        title: Graph traversal
+        level: beginner
+        est_minutes: 15
+        body: |
+          Store sparse graphs as adjacency lists (O(V + E) space). BFS uses a queue and
+          finds fewest-edge paths; DFS uses recursion or a stack and underpins cycle
+          detection and topological sorting. Both run in O(V + E).
+      - type: link
+        title: Breadth-first search (Wikipedia)
+        url: https://en.wikipedia.org/wiki/Breadth-first_search
+        level: intermediate
+        est_minutes: 20
+      - type: link
+        title: Depth-first search (Wikipedia)
+        url: https://en.wikipedia.org/wiki/Depth-first_search
+        level: intermediate
+        est_minutes: 20
+    questions:
+      - text: Breadth-first search on an unweighted graph finds
+        correct: Shortest paths (fewest edges) from the source
+        wrong: [A minimum spanning tree, The longest simple path, A topological order of any graph]
+        explanation: BFS explores vertices in order of their distance in edges from the source.
+        difficulty: 2
+        diagnostic: true
+      - text: An adjacency list for a graph with V vertices and E edges uses
+        correct: O(V + E) space
+        wrong: [O(V^2) space, O(E^2) space, O(V) space]
+        explanation: One list per vertex plus one entry per edge (two for undirected graphs).
+        difficulty: 3
+        diagnostic: true
+      - text: A topological ordering exists only for
+        correct: Directed acyclic graphs
+        wrong: [Undirected graphs, Complete graphs, Directed graphs with cycles]
+        explanation: A cycle would require a vertex to come before itself.
+        difficulty: 3
+        diagnostic: false
+
+  - slug: shortest-paths
+    name: Shortest Paths
+    description: Dijkstra, Bellman-Ford and weighted shortest paths.
+    difficulty: 5
+    est_minutes: 120
+    prerequisites: [graphs, heaps]
+    resources:
+      - type: notes
+        title: Choosing a shortest-path algorithm
+        level: beginner
+        est_minutes: 15
+        body: |
+          Unweighted: BFS. Non-negative weights: Dijkstra with a min-heap,
+          O((V + E) log V). Negative weights: Bellman-Ford, O(VE), which also detects
+          negative cycles. All pairs on small graphs: Floyd-Warshall, O(V^3).
+      - type: link
+        title: Dijkstra's algorithm (Wikipedia)
+        url: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
+        level: advanced
+        est_minutes: 30
+    questions:
+      - text: Dijkstra's algorithm can give wrong results when the graph has
+        correct: Negative edge weights
+        wrong: [Cycles, More than 100 vertices, All edges of equal weight]
+        explanation: It finalizes a vertex assuming no later path can be shorter, which negative edges break.
+        difficulty: 3
+        diagnostic: true
+      - text: With a binary heap, Dijkstra's algorithm runs in
+        correct: O((V + E) log V)
+        wrong: [O(V^3), O(E), O(V!)]
+        explanation: Each vertex extraction and each edge relaxation costs O(log V) heap work.
+        difficulty: 4
+        diagnostic: true
+      - text: Which algorithm handles negative edge weights and detects negative cycles?
+        correct: Bellman-Ford
+        wrong: [Dijkstra, Prim, Kruskal]
+        explanation: Bellman-Ford relaxes all edges V - 1 times; a further improvement means a negative cycle.
+        difficulty: 4
+        diagnostic: false
+
+  - slug: dp
+    name: Dynamic Programming
+    description: Overlapping subproblems, memoization and tabulation.
+    difficulty: 5
+    est_minutes: 150
+    prerequisites: [recursion, arrays]
+    resources:
+      - type: notes
+        title: DP recipe
+        level: beginner
+        est_minutes: 15
+        body: |
+          1) Define the state (what a subproblem means). 2) Write the recurrence.
+          3) Set base cases. 4) Choose memoization (top-down) or tabulation (bottom-up).
+          5) Read the answer from the right state.
+      - type: link
+        title: Dynamic programming (Wikipedia)
+        url: https://en.wikipedia.org/wiki/Dynamic_programming
+        level: advanced
+        est_minutes: 30
+    questions:
+      - text: Dynamic programming is applicable when a problem has
+        correct: Overlapping subproblems and optimal substructure
+        wrong: [No subproblems at all, Exactly one possible solution, Only random inputs]
+        explanation: DP reuses answers to repeated subproblems that combine into the optimal answer.
+        difficulty: 2
+        diagnostic: true
+      - text: Memoized Fibonacci computes fib(n) in
+        correct: O(n)
+        wrong: [O(2^n), O(n^2), O(log n)]
+        explanation: Each value fib(0..n) is computed once and then looked up.
+        difficulty: 3
+        diagnostic: true
+      - text: The classic 0/1 knapsack DP with n items and capacity W runs in
+        correct: O(nW)
+        wrong: [O(2^n) regardless of method, O(n log n), O(W)]
+        explanation: The table has (n + 1) x (W + 1) states, each filled in O(1).
+        difficulty: 4
+        diagnostic: false
