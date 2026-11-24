@@ -2,6 +2,7 @@ import pytest
 from sqlalchemy import select
 
 from app.models import LearningEvent, Question, Subject, TopicMastery, TopicStatus
+from app.seed.loader import load_all
 from tests.conftest import register
 
 PROFILE = {
@@ -159,3 +160,18 @@ def test_latest_result_and_mastery_endpoint(client, auth_headers, subject_id, se
     after = client.get(f"/api/v1/subjects/{subject_id}/mastery", headers=auth_headers).json()
     assert all(t["status"] == TopicStatus.mastered.value for t in after)
     assert len(seeded.scalars(select(TopicMastery)).all()) == 16
+
+
+def test_results_survive_reloading_the_seed(client, auth_headers, subject_id, seeded):
+    # The API container reloads the seed on every start; past answers must keep pointing at their questions.
+    quiz = start(client, auth_headers, subject_id)
+    submitted = client.post(
+        f"/api/v1/onboarding/diagnostic/{quiz['id']}/submit",
+        json={"answers": answers_for(seeded, quiz, True)},
+        headers=auth_headers,
+    ).json()
+    assert submitted["total"] == len(quiz["questions"]) and submitted["correct"] == submitted["total"]
+
+    load_all(seeded)
+    seeded.expire_all()
+    assert client.get("/api/v1/onboarding/diagnostic/latest", headers=auth_headers).json() == submitted

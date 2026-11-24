@@ -1,7 +1,8 @@
 """Load subject content (topics, prerequisites, resources, questions) from YAML.
 
-Loading is idempotent: subjects and topics are matched by slug and updated in
-place, and each topic's resources and questions are replaced by the file's copy.
+Loading is idempotent: subjects and topics are matched by slug, resources by title and
+questions by text, and each is updated in place so ids (and the quiz history that points
+at question ids) survive a reload. Entries no longer in the file are removed.
 """
 
 import random
@@ -62,31 +63,33 @@ def load_subject(db: Session, data: dict[str, Any]) -> Subject:
         topic.difficulty = t.get("difficulty", 1)
         topic.est_minutes = t.get("est_minutes", 60)
         topic.order_hint = order
-        topic.resources = [
-            Resource(
-                type=ResourceType(r["type"]),
-                title=r["title"],
-                url=r.get("url"),
-                body=r.get("body"),
-                level=Level(r.get("level", "beginner")),
-                est_minutes=r.get("est_minutes", 15),
-            )
-            for r in t.get("resources", [])
-        ]
+        # Resources and questions are matched by title and text and updated in place, so their ids
+        # stay the same across loads: quizzes and their answers point at question ids.
+        existing_resources = {r.title: r for r in topic.resources}
+        resources = []
+        for r in t.get("resources", []):
+            resource = existing_resources.get(r["title"]) or Resource(title=r["title"])
+            resource.type = ResourceType(r["type"])
+            resource.url = r.get("url")
+            resource.body = r.get("body")
+            resource.level = Level(r.get("level", "beginner"))
+            resource.est_minutes = r.get("est_minutes", 15)
+            resources.append(resource)
+        topic.resources = resources
+
+        existing_questions = {q.text: q for q in topic.questions}
         questions = []
         for q in t.get("questions", []):
             options, answer = shuffled_options(q["text"], str(q["correct"]), [str(w) for w in q["wrong"]])
-            questions.append(
-                Question(
-                    type=QuestionType(q.get("type", "mcq")),
-                    text=q["text"],
-                    options=options,
-                    answer=answer,
-                    explanation=q.get("explanation", ""),
-                    difficulty=q.get("difficulty", 1),
-                    is_diagnostic=q.get("diagnostic", False),
-                )
-            )
+            question = existing_questions.get(q["text"]) or Question(text=q["text"])
+            question.type = QuestionType(q.get("type", "mcq"))
+            question.options = options
+            question.answer = answer
+            question.explanation = q.get("explanation", "")
+            question.difficulty = q.get("difficulty", 1)
+            question.is_diagnostic = q.get("diagnostic", False)
+            questions.append(question)
+        # A question removed from the file is deleted, along with the answers given to it.
         topic.questions = questions
         topics_by_slug[t["slug"]] = topic
 

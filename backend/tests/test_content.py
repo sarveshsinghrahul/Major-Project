@@ -4,7 +4,7 @@ import pytest
 import yaml
 from sqlalchemy import func, select
 
-from app.models import Question, Subject, Topic
+from app.models import Question, Resource, Subject, Topic
 from app.seed.loader import SEED_DIR, load_all, load_subject, shuffled_options, validate
 from app.services.graph import CycleError, topological_order
 
@@ -62,6 +62,14 @@ def test_seeding_is_idempotent(seeded):
     assert seeded.scalar(select(func.count()).select_from(Question)) == sum(
         len(t["questions"]) for t in dsa_data()["topics"]
     )
+
+
+def test_seeding_keeps_question_and_resource_ids(seeded):
+    question_ids = set(seeded.scalars(select(Question.id)))
+    resource_ids = set(seeded.scalars(select(Resource.id)))
+    load_all(seeded)
+    assert set(seeded.scalars(select(Question.id))) == question_ids
+    assert set(seeded.scalars(select(Resource.id))) == resource_ids
 
 
 def test_seeding_applies_edits(seeded):
