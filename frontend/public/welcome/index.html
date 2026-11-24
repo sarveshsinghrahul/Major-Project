@@ -269,6 +269,13 @@ footer a { color: var(--ink-2); }
 </footer>
 
 <script>
+// Opened straight from disk (file://), /login and /register would point at the drive root. Send them
+// to the local dev server instead, where the app actually runs.
+if (location.protocol === "file:") {
+  for (const a of document.querySelectorAll('a[href^="/"]')) a.href = "http://localhost:5173" + a.getAttribute("href");
+}
+</script>
+<script>
 // Split-flap cells: each [data-flap] is drawn as flap cells and cascades once on load,
 // left to right, before settling. Under reduced motion it simply shows the final text.
 (() => {
