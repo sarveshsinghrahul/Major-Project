@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { AuthForm, Field } from "../components/AuthForm";
+import { link } from "../components/ui";
 import { useAuth } from "../store/auth";
 
 export function LoginPage() {
@@ -31,6 +32,7 @@ export function LoginPage() {
   return (
     <AuthForm
       title="Log in"
+      subtitle="Pick up your DSA roadmap where you left it."
       error={error}
       submitting={submitting}
       submitLabel="Log in"
@@ -38,7 +40,7 @@ export function LoginPage() {
       footer={
         <>
           New here?{" "}
-          <Link to="/register" className="font-medium text-indigo-600">
+          <Link to="/register" className={link}>
             Create an account
           </Link>
         </>

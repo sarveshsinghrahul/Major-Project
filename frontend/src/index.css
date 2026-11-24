@@ -1,3 +1,85 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Archivo, self-hosted with its width axis: condensed (62) for board cells, normal (100) for prose. */
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+  src: url("/fonts/archivo-latin.woff2") format("woff2");
+}
+
+html {
+  color-scheme: dark;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  background: #2a2d31;
+}
+
+body {
+  font-feature-settings: "lnum", "tnum";
+  /* brushed steel: a fine vertical grain over the frame colour */
+  background-image: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 3px);
+}
+
+::selection {
+  background: #ffb000;
+  color: #0b0b0d;
+}
+
+:focus-visible {
+  outline: 2px solid #ffb000;
+  outline-offset: 2px;
+}
+
+input,
+textarea {
+  caret-color: #ffb000;
+}
+
+* {
+  scrollbar-color: #4a4d52 transparent;
+}
+
+h1,
+h2 {
+  text-wrap: balance;
+}
+
+@layer components {
+  /* Board type: condensed capitals in fixed rhythm, as painted on a flap. */
+  .board-type {
+    font-stretch: 62%;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* One flap: dark cell with the hinge line through its middle. */
+  .flap-cell {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0.78em;
+    padding: 0.08em 0.06em;
+    border-radius: 2px;
+    background: linear-gradient(to bottom, #1b1c20 0 49%, #050506 49% 51%, #141518 51% 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .flap-cell + .flap-cell {
+    margin-left: 0.08em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

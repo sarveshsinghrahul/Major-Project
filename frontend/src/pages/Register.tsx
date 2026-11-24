@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { AuthForm, Field } from "../components/AuthForm";
+import { link } from "../components/ui";
 import { useAuth } from "../store/auth";
 
 export function RegisterPage() {
@@ -31,14 +32,15 @@ export function RegisterPage() {
   return (
     <AuthForm
       title="Create your account"
+      subtitle="Take a 32-question placement quiz and get a roadmap built around your level."
       error={error}
       submitting={submitting}
-      submitLabel="Sign up"
+      submitLabel="Create account"
       onSubmit={submit}
       footer={
         <>
           Already registered?{" "}
-          <Link to="/login" className="font-medium text-indigo-600">
+          <Link to="/login" className={link}>
             Log in
           </Link>
         </>
@@ -47,8 +49,8 @@ export function RegisterPage() {
       <Field label="Name" value={name} onChange={setName} autoComplete="name" />
       <Field label="Email" type="email" value={email} onChange={setEmail} autoComplete="email" />
       <Field label="Password (8+ characters)" type="password" value={password} onChange={setPassword} autoComplete="new-password" />
-      <label className="flex items-start gap-2 text-sm text-slate-600">
-        <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-1" />
+      <label className="flex items-start gap-2.5 text-sm text-muted">
+        <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5 h-4 w-4 accent-primary" />
         <span>Store my quiz results and study activity so LearnPath can personalize my learning path.</span>
       </label>
     </AuthForm>

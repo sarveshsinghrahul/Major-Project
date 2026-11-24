@@ -1,8 +1,10 @@
 import type { FormEvent, ReactNode } from "react";
+import { Mark, btn, input } from "./ui";
 
 // Shared card + error/submit handling for the login and register pages.
 export function AuthForm({
   title,
+  subtitle,
   error,
   submitting,
   submitLabel,
@@ -11,6 +13,7 @@ export function AuthForm({
   footer,
 }: {
   title: string;
+  subtitle?: string;
   error: string | null;
   submitting: boolean;
   submitLabel: string;
@@ -24,24 +27,24 @@ export function AuthForm({
   }
 
   return (
-    <div className="mx-auto mt-12 max-w-sm rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-      <h1 className="mb-6 text-xl font-semibold">{title}</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        {children}
-        {error && (
-          <p role="alert" className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">
-            {error}
-          </p>
-        )}
-        <button
-          type="submit"
-          disabled={submitting}
-          className="w-full rounded-md bg-indigo-600 px-4 py-2 font-medium text-white hover:bg-indigo-700 disabled:opacity-60"
-        >
-          {submitting ? "Please wait…" : submitLabel}
-        </button>
-      </form>
-      <p className="mt-4 text-center text-sm text-slate-600">{footer}</p>
+    <div className="mx-auto mt-6 max-w-[400px] md:mt-12">
+      <div className="rounded-lg border border-bezel bg-surface p-7 shadow-lifted sm:p-8">
+        <Mark className="mb-5 h-7 w-7 text-primary" />
+        <h1 className="board-type text-[30px] font-bold leading-none text-ink">{title}</h1>
+        {subtitle && <p className="mt-1.5 text-dense text-muted">{subtitle}</p>}
+        <form onSubmit={handleSubmit} className="mt-7 space-y-4">
+          {children}
+          {error && (
+            <p role="alert" className="rounded-md bg-danger-soft px-3 py-2 text-dense text-danger">
+              {error}
+            </p>
+          )}
+          <button type="submit" disabled={submitting} className={`${btn.primary} mt-2 w-full`}>
+            {submitting ? "Please wait…" : submitLabel}
+          </button>
+        </form>
+      </div>
+      <p className="mt-5 text-center text-dense text-muted">{footer}</p>
     </div>
   );
 }
@@ -60,15 +63,17 @@ export function Field({
   autoComplete?: string;
 }) {
   return (
-    <label className="block text-sm">
-      <span className="mb-1 block font-medium text-slate-700">{label}</span>
+    <label className="block">
+      <span className="mb-1.5 block text-sm font-medium text-ink-2">{label}</span>
       <input
         type={type}
+        name={autoComplete ?? label}
+        spellCheck={type === "email" ? false : undefined}
         value={value}
         required
         autoComplete={autoComplete}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-md border border-slate-300 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+        className={input}
       />
     </label>
   );

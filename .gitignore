@@ -18,3 +18,11 @@ Thumbs.db
 
 # Local tool config
 .claude/
+
+# taste skill working files (screenshots, browser profiles, deal history)
+frontend/.taste-skill/
+
+# Impeccable working files (catalog reference images, decision-page payloads)
+.impeccable/reference/
+.impeccable/decision-world.json
+.impeccable/brief-app.md

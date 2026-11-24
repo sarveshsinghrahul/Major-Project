@@ -1,0 +1,553 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-24T07:28:43.118Z",
+  "title": "Design System: LearnPath",
+  "extensions": {
+    "colorMeta": {
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Steel Frame",
+        "canonical": "#2a2d31",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242527",
+          "#404245",
+          "#5f6165",
+          "#7f8387",
+          "#a2a5a9",
+          "#c7c9cc",
+          "#edeff1"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Flap Black",
+        "canonical": "#0b0b0d",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#252526",
+          "#424243",
+          "#616163",
+          "#828285",
+          "#a5a5a7",
+          "#c9c9cb",
+          "#eeeeef"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Inner Rule",
+        "canonical": "#44474d",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242527",
+          "#404246",
+          "#5f6166",
+          "#7f8289",
+          "#a2a5ab",
+          "#c7c9cd",
+          "#edeef2"
+        ]
+      },
+      "bezel": {
+        "role": "neutral",
+        "displayName": "Bezel Steel",
+        "canonical": "#5b5e63",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242527",
+          "#404245",
+          "#5f6165",
+          "#7f8288",
+          "#a2a5aa",
+          "#c7c9cd",
+          "#edeef1"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Letter White",
+        "canonical": "#f2f2f2",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Dim Letter",
+        "canonical": "#d3d5d8",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242526",
+          "#414244",
+          "#606163",
+          "#818285",
+          "#a3a5a7",
+          "#c8c9cb",
+          "#eeeef0"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Steel Light",
+        "canonical": "#a7aaaf",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242527",
+          "#404245",
+          "#5f6165",
+          "#808287",
+          "#a3a5a9",
+          "#c7c9cc",
+          "#edeef1"
+        ]
+      },
+      "faint": {
+        "role": "neutral",
+        "displayName": "Steel Faint",
+        "canonical": "#80848b",
+        "tonalRamp": [
+          "#0a0b0c",
+          "#242528",
+          "#404246",
+          "#5e6167",
+          "#7f8289",
+          "#a2a5ab",
+          "#c7c9ce",
+          "#edeef2"
+        ]
+      },
+      "primary": {
+        "role": "primary",
+        "displayName": "Amber Lamp",
+        "canonical": "#ffb000",
+        "tonalRamp": [
+          "#150800",
+          "#391e00",
+          "#613700",
+          "#8d5200",
+          "#ba7000",
+          "#d5982e",
+          "#f0c07a",
+          "#ffe9ba"
+        ]
+      },
+      "primary-active": {
+        "role": "primary",
+        "displayName": "Pressed Amber",
+        "canonical": "#e69e00",
+        "tonalRamp": [
+          "#140800",
+          "#381f00",
+          "#5f3800",
+          "#8a5400",
+          "#b67200",
+          "#d2993e",
+          "#edc181",
+          "#ffe9be"
+        ]
+      },
+      "primary-soft": {
+        "role": "primary",
+        "displayName": "Amber Glow",
+        "canonical": "#2a1f05",
+        "tonalRamp": [
+          "#0d0b06",
+          "#29241a",
+          "#494131",
+          "#6a604a",
+          "#8e8165",
+          "#afa48d",
+          "#d1c8b6",
+          "#f4eee1"
+        ]
+      },
+      "success": {
+        "role": "secondary",
+        "displayName": "Signal Green",
+        "canonical": "#3fcf74",
+        "tonalRamp": [
+          "#001003",
+          "#002f0f",
+          "#005220",
+          "#007732",
+          "#009e47",
+          "#57be77",
+          "#93dea6",
+          "#cbfdd6"
+        ]
+      },
+      "danger": {
+        "role": "tertiary",
+        "displayName": "Cancel Red",
+        "canonical": "#ff6166",
+        "tonalRamp": [
+          "#1b0303",
+          "#460e11",
+          "#751d23",
+          "#a82e36",
+          "#dd434c",
+          "#f67979",
+          "#ffaaa7",
+          "#ffdad7"
+        ]
+      },
+      "danger-soft": {
+        "role": "tertiary",
+        "displayName": "Red Glow",
+        "canonical": "#2b0f11",
+        "tonalRamp": [
+          "#100909",
+          "#2e2121",
+          "#513c3c",
+          "#765959",
+          "#9c7878",
+          "#bb9c9c",
+          "#dbc2c2",
+          "#fbeaea"
+        ]
+      },
+      "line-sky": {
+        "role": "line",
+        "displayName": "Sky Line",
+        "canonical": "#5fb0ff",
+        "tonalRamp": [
+          "#020c19",
+          "#092642",
+          "#15446f",
+          "#23649f",
+          "#3586d1",
+          "#6caae8",
+          "#9fceff",
+          "#d2f2ff"
+        ]
+      },
+      "line-violet": {
+        "role": "line",
+        "displayName": "Violet Line",
+        "canonical": "#b99cff",
+        "tonalRamp": [
+          "#0d0818",
+          "#281e3f",
+          "#47366b",
+          "#68519b",
+          "#8b6ecb",
+          "#ac96e4",
+          "#cebefb",
+          "#f2e7ff"
+        ]
+      },
+      "line-pink": {
+        "role": "line",
+        "displayName": "Pink Line",
+        "canonical": "#ff7ac6",
+        "tonalRamp": [
+          "#18030f",
+          "#3f112c",
+          "#6b224e",
+          "#9a3571",
+          "#ca4b97",
+          "#e57db7",
+          "#feacd7",
+          "#ffdbf8"
+        ]
+      },
+      "line-orange": {
+        "role": "line",
+        "displayName": "Orange Line",
+        "canonical": "#ff8a3d",
+        "tonalRamp": [
+          "#180500",
+          "#401700",
+          "#6c2d00",
+          "#9b4400",
+          "#cc5d00",
+          "#e68a53",
+          "#ffb68d",
+          "#ffe2c5"
+        ]
+      },
+      "line-teal": {
+        "role": "line",
+        "displayName": "Teal Line",
+        "canonical": "#3ccfc3",
+        "tonalRamp": [
+          "#000f0d",
+          "#002d29",
+          "#004f49",
+          "#00736b",
+          "#00998e",
+          "#51b9af",
+          "#90d9d1",
+          "#c9faf4"
+        ]
+      },
+      "line-green": {
+        "role": "line",
+        "displayName": "Green Line",
+        "canonical": "#7bd66b",
+        "tonalRamp": [
+          "#020f01",
+          "#0d2d07",
+          "#1c4f12",
+          "#2c731e",
+          "#40992f",
+          "#74ba68",
+          "#a5da9b",
+          "#d6fbcf"
+        ]
+      },
+      "line-brown": {
+        "role": "line",
+        "displayName": "Brown Line",
+        "canonical": "#c9a27a",
+        "tonalRamp": [
+          "#100a04",
+          "#2f2214",
+          "#523d28",
+          "#785b3c",
+          "#9f7a54",
+          "#be9f7f",
+          "#ddc4ac",
+          "#fdebda"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Landing-page hero and closing headline only, set in flap cells."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "One page title per app screen; 34px on phones."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Board heads and panel headings."
+      },
+      "board-data": {
+        "displayName": "Board Data",
+        "purpose": "Status words, button labels, nav items, topic names (17px), facts (22px)."
+      },
+      "question": {
+        "displayName": "Question",
+        "purpose": "Quiz question text; the one sentence-case heading."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Prose and level reasons, 60-70ch. Landing page uses 17px/1.55."
+      },
+      "body-small": {
+        "displayName": "Body Small",
+        "purpose": "Reasons under topics, board notes, helper text."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Table column heads and fact labels over data."
+      }
+    },
+    "shadows": [
+      {
+        "name": "board-lift",
+        "value": "0 1px 0 rgba(255,255,255,0.05) inset, 0 12px 32px rgba(0,0,0,0.55)",
+        "purpose": "The board a screen is about: departures boards, auth panels."
+      },
+      {
+        "name": "board-lift-landing",
+        "value": "0 1px 0 rgba(255,255,255,.05) inset, 0 18px 40px rgba(0,0,0,.5)",
+        "purpose": "Landing-page hero board."
+      },
+      {
+        "name": "flap-highlight",
+        "value": "inset 0 1px 0 rgba(255,255,255,0.05)",
+        "purpose": "Every flap cell."
+      },
+      {
+        "name": "selected-option-ring",
+        "value": "inset 0 0 0 1px #ffb000",
+        "purpose": "Selected quiz option."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-board",
+        "value": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "Button colour and press transitions, 150ms."
+      },
+      {
+        "name": "press-scale",
+        "value": "scale(0.98)",
+        "purpose": "Active state of buttons."
+      },
+      {
+        "name": "flap-tick",
+        "value": "38ms",
+        "purpose": "Interval of the split-flap cascade; each cell settles 5 ticks after its left neighbour."
+      },
+      {
+        "name": "flap-memory",
+        "value": "cascade only when the value differs from the last one stored for that cell",
+        "purpose": "A board that has not changed stays still; reduced motion always renders settled."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      }
+    ],
+    "surfaces": {
+      "pageGrain": "repeating-linear-gradient(90deg, rgba(255,255,255,0.018) 0 1px, transparent 1px 3px) over #2a2d31",
+      "flapCell": "linear-gradient(to bottom, #1b1c20 0 49%, #050506 49% 51%, #141518 51% 100%)",
+      "focus": "2px solid #ffb000, offset 2px",
+      "selection": "#ffb000 background, #0b0b0d text",
+      "scrollbar": "#4a4d52 on transparent"
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The amber lamp: the one action on a screen.",
+      "html": "<button class=\"ds-btn-primary\">Save and start the quiz</button>",
+      "css": ".ds-btn-primary{font-family:Archivo,system-ui,sans-serif;font-stretch:62%;text-transform:uppercase;letter-spacing:0.08em;font-variant-numeric:tabular-nums;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 20px;border:0;border-radius:4px;background:#ffb000;color:#0b0b0d;font-size:15px;font-weight:700;cursor:pointer;transition:background-color 150ms cubic-bezier(0.23,1,0.32,1),transform 150ms cubic-bezier(0.23,1,0.32,1)}.ds-btn-primary:hover{background:#e69e00}.ds-btn-primary:active{transform:scale(0.98)}.ds-btn-primary:focus-visible{outline:2px solid #ffb000;outline-offset:2px}.ds-btn-primary:disabled{opacity:.4;cursor:not-allowed}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "A framed board button: inner-rule edge on flap black.",
+      "html": "<button class=\"ds-btn-secondary\">View diagnostic results</button>",
+      "css": ".ds-btn-secondary{font-family:Archivo,system-ui,sans-serif;font-stretch:62%;text-transform:uppercase;letter-spacing:0.08em;font-variant-numeric:tabular-nums;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 20px;border:1px solid #44474d;border-radius:4px;background:#0b0b0d;color:#f2f2f2;font-size:15px;font-weight:600;cursor:pointer;transition:border-color 150ms cubic-bezier(0.23,1,0.32,1),transform 150ms cubic-bezier(0.23,1,0.32,1)}.ds-btn-secondary:hover{border-color:#a7aaaf}.ds-btn-secondary:active{transform:scale(0.98)}.ds-btn-secondary:focus-visible{outline:2px solid #ffb000;outline-offset:2px}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Borderless, normal-width; Log out on phones.",
+      "html": "<button class=\"ds-btn-ghost\">Log out</button>",
+      "css": ".ds-btn-ghost{font-family:Archivo,system-ui,sans-serif;display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:0;border-radius:4px;background:transparent;color:#d3d5d8;font-size:15px;cursor:pointer;transition:background-color 150ms,color 150ms}.ds-btn-ghost:hover{background:rgba(255,255,255,.06);color:#f2f2f2}.ds-btn-ghost:focus-visible{outline:2px solid #ffb000;outline-offset:2px}"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Flap-black field; the border turns amber on focus.",
+      "html": "<input class=\"ds-input\" placeholder=\"e.g. Prepare for placement interviews…\">",
+      "css": ".ds-input{font-family:Archivo,system-ui,sans-serif;width:100%;padding:10px 12px;border:1px solid #44474d;border-radius:4px;background:#0b0b0d;color:#f2f2f2;font-size:16px;caret-color:#ffb000;transition:border-color 150ms}.ds-input::placeholder{color:#80848b}.ds-input:focus-visible{outline:none;border-color:#ffb000}"
+    },
+    {
+      "name": "Rail Navigation",
+      "kind": "nav",
+      "refersTo": "nav-rail-item",
+      "description": "Steel rail items; the active one is amber on flap black.",
+      "html": "<nav class=\"ds-rail\"><a class=\"ds-rail-item is-active\" href=\"#\">Roadmap</a><a class=\"ds-rail-item\" href=\"#\">Results</a><a class=\"ds-rail-item\" href=\"#\">About</a></nav>",
+      "css": ".ds-rail{display:flex;flex-direction:column;gap:4px;width:216px;padding:12px;background:#2a2d31}.ds-rail-item{font-family:Archivo,system-ui,sans-serif;font-stretch:62%;text-transform:uppercase;letter-spacing:0.08em;font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:4px;color:#a7aaaf;font-size:15px;font-weight:600;text-decoration:none;transition:background-color 150ms,color 150ms}.ds-rail-item:hover{background:rgba(255,255,255,.05);color:#f2f2f2}.ds-rail-item.is-active{background:#0b0b0d;color:#ffb000}.ds-rail-item:focus-visible{outline:2px solid #ffb000;outline-offset:2px}"
+    },
+    {
+      "name": "Day Chip",
+      "kind": "chip",
+      "refersTo": "",
+      "description": "Onboarding day toggle; pressed is amber on amber glow.",
+      "html": "<div class=\"ds-chips\"><button class=\"ds-chip\" aria-pressed=\"true\">Mon</button><button class=\"ds-chip\" aria-pressed=\"false\">Tue</button></div>",
+      "css": ".ds-chips{display:flex;gap:8px}.ds-chip{font-family:Archivo,system-ui,sans-serif;padding:6px 12px;border:1px solid #44474d;border-radius:4px;background:transparent;color:#d3d5d8;font-size:15px;cursor:pointer;transition:background-color 150ms}.ds-chip:hover{background:#2a2d31}.ds-chip[aria-pressed=true]{border-color:#ffb000;background:#2a1f05;color:#e69e00}.ds-chip:focus-visible{outline:2px solid #ffb000;outline-offset:2px}"
+    },
+    {
+      "name": "Board Panel",
+      "kind": "card",
+      "refersTo": "board-panel",
+      "description": "Flat flap-black panel with a bezel edge.",
+      "html": "<section class=\"ds-panel\"><h2 class=\"ds-panel-h\">Review your answers</h2><p class=\"ds-panel-p\">Topics open once every prerequisite reaches 60% mastery.</p></section>",
+      "css": ".ds-panel{font-family:Archivo,system-ui,sans-serif;padding:24px;border:1px solid #5b5e63;border-radius:6px;background:#0b0b0d;color:#f2f2f2}.ds-panel-h{font-stretch:62%;text-transform:uppercase;letter-spacing:0.08em;font-variant-numeric:tabular-nums;margin:0;font-size:24px;font-weight:700;line-height:1.15;letter-spacing:.04em}.ds-panel-p{margin:8px 0 0;font-size:14px;color:#a7aaaf}"
+    },
+    {
+      "name": "Departures Board",
+      "kind": "custom",
+      "refersTo": "board",
+      "description": "Fixed topic rows; status words lit in lamp colours, Ready row glowing amber.",
+      "html": "<section class=\"ds-board\"><div class=\"ds-board-head\"><h2>Roadmap</h2><p>Topics open when every prerequisite reaches 60%.</p></div><table><thead><tr><th>No.</th><th>Topic</th><th>Status</th><th class=\"r\">Mastery</th></tr></thead><tbody><tr><td><span class=\"ds-flap\">0</span><span class=\"ds-flap\">1</span><i class=\"ds-stripe\" style=\"background:#5fb0ff\"></i></td><td><b>Complexity &amp; Big-O</b><span class=\"why\">You scored 86% on this topic&#39;s questions.</span></td><td class=\"st\" style=\"color:#3fcf74\">Mastered</td><td class=\"r\">86%</td></tr><tr class=\"ready\"><td><span class=\"ds-flap\">0</span><span class=\"ds-flap\">2</span><i class=\"ds-stripe\" style=\"background:#b99cff\"></i></td><td><b>Arrays</b><span class=\"why\">Prerequisites are ready: Complexity &amp; Big-O.</span></td><td class=\"st\" style=\"color:#ffb000\">Ready</td><td class=\"r\">54%</td></tr><tr><td><span class=\"ds-flap\">0</span><span class=\"ds-flap\">3</span><i class=\"ds-stripe\" style=\"background:#ff7ac6\"></i></td><td><b style=\"color:#d3d5d8\">Strings</b><span class=\"why\">Unlocks when these reach 60%: Arrays (54%).</span></td><td class=\"st\" style=\"color:#a7aaaf\">Locked</td><td class=\"r\">50%</td></tr></tbody></table></section>",
+      "css": ".ds-board{font-family:Archivo,system-ui,sans-serif;overflow:hidden;border:1px solid #5b5e63;border-radius:6px;background:#0b0b0d;color:#f2f2f2;box-shadow:0 1px 0 rgba(255,255,255,.05) inset,0 12px 32px rgba(0,0,0,.55)}.ds-board-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px;padding:16px 20px;border-bottom:1px solid #44474d}.ds-board-head h2{font-stretch:62%;text-transform:uppercase;letter-spacing:0.08em;font-variant-numeric:tabular-nums;margin:0;font-size:24px;font-weight:700;letter-spacing:.04em}.ds-board-head p{margin:0;font-size:14px;color:#a7aaaf}.ds-board table{width:100%;border-collapse:collapse;text-align:left}.ds-board th{font-stretch:62%;text-transform:uppercase;letter-spacing:0.08em;font-variant-numeric:tabular-nums;padding:10px 12px;font-size:12px;font-weight:600;color:#a7aaaf;border-bottom:1px solid #44474d}.ds-board td{padding:14px 12px;border-bottom:1px solid #44474d;vertical-align:top}.ds-board th:first-child,.ds-board td:first-child{padding-left:20px;width:64px}.ds-board tr:last-child td{border-bottom:0}.ds-board tr.ready{background:#2a1f05}.ds-board b{font-stretch:62%;text-transform:uppercase;letter-spacing:0.08em;font-variant-numeric:tabular-nums;display:block;font-size:17px}.ds-board .why{display:block;margin-top:4px;font-size:14px;color:#a7aaaf}.ds-board .st{font-stretch:62%;text-transform:uppercase;letter-spacing:0.08em;font-variant-numeric:tabular-nums;font-size:15px;font-weight:700;white-space:nowrap}.ds-board .r{font-stretch:62%;text-transform:uppercase;letter-spacing:0.08em;font-variant-numeric:tabular-nums;text-align:right;padding-right:20px;font-size:15px;font-weight:600;color:#d3d5d8}.ds-flap{font-stretch:62%;text-transform:uppercase;letter-spacing:0.08em;font-variant-numeric:tabular-nums;display:inline-flex;align-items:center;justify-content:center;min-width:.78em;padding:.08em .06em;border-radius:2px;font-size:15px;font-weight:700;background:linear-gradient(to bottom,#1b1c20 0 49%,#050506 49% 51%,#141518 51% 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}.ds-flap+.ds-flap{margin-left:.08em}.ds-stripe{display:block;height:3px;margin-top:4px;border-radius:999px;width:2.2em}"
+    },
+    {
+      "name": "Mastery Bar",
+      "kind": "custom",
+      "refersTo": "",
+      "description": "Ten lamp segments plus the percentage; green from 80%.",
+      "html": "<div class=\"ds-mastery\"><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span class=\"on\"></span><span></span><span></span><span></span><span></span><span></span><b>54%</b></div>",
+      "css": ".ds-mastery{font-family:Archivo,system-ui,sans-serif;display:flex;align-items:center;gap:3px;color:#d3d5d8}.ds-mastery span{width:5px;height:10px;border-radius:1px;background:rgba(255,255,255,.09)}.ds-mastery span.on{background:#ffb000}.ds-mastery b{font-stretch:62%;text-transform:uppercase;letter-spacing:0.08em;font-variant-numeric:tabular-nums;margin-left:7px;width:40px;text-align:right;font-size:15px;font-weight:600}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Departures Board",
+    "overview": "LearnPath is a station concourse at night. Matte flap-black boards sit in a brushed-steel frame, and the student reads their study plan the way a traveller reads departures: sixteen topic rows in prerequisite order that never move, where only the status and mastery cells change. Board data is set in condensed Archivo capitals inside fixed flap cells; the reasons beneath each row stay in normal-width sentence case, because a reason is a sentence to be read, not a destination to be scanned.\n\nColour behaves like lamps on a board. Everything rests in black, steel and letter-white; a single amber lamp marks the one thing to act on (the Ready row, the primary button, the active nav item), signal green means mastered and nothing else, and red appears only for errors and wrong answers. Each topic also carries one permanent rail-line colour, a thin stripe under its number, the way a line keeps its colour on every sign in a network.\n\nMotion is the board's one indulgence and it is earned: a cell cascades through characters, left to right, only when its value differs from the one it last showed. A board that has not changed is still. Under reduced motion every cell renders settled. The system refuses the category default of a white dashboard of cards and progress bars.",
+    "keyCharacteristics": [
+      "Dark, matte, high-contrast: flap-black boards on a steel ground with a fine vertical grain.",
+      "Condensed capitals in fixed cells for board data and labels; normal-width sentence case for prose and reasons.",
+      "One amber lamp per screen for the action; green only for mastered; red only for errors.",
+      "Fixed rows, changing cells: topic order and numbering never move.",
+      "Tabular, lining figures everywhere, so numbers align in columns.",
+      "Semantic tables under the board look; the flaps are decoration, the text is real."
+    ],
+    "rules": [
+      {
+        "name": "The One Lamp Rule",
+        "body": "Amber marks the action. If a screen has amber on two unrelated things, one of them is wrong.",
+        "section": "colors"
+      },
+      {
+        "name": "The Green Means Mastered Rule",
+        "body": "Signal green appears only for mastery at or above 80%, the mastered count, the advanced level and correct answers. It is never a generic \"success\" or decoration.",
+        "section": "colors"
+      },
+      {
+        "name": "The Line Colour Is Identity Rule",
+        "body": "A rail-line colour belongs to its topic forever and only identifies it. Never use line colours for buttons, backgrounds or emphasis.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Widths Rule",
+        "body": "Data and labels are condensed capitals; reasons and prose are normal-width sentence case. Never set a reason in board type, never set a status word in sentence case.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Rule",
+        "body": "Figures are tabular and lining everywhere, so percentages, counts and minutes align in their columns.",
+        "section": "typography"
+      },
+      {
+        "name": "The Lit Board Rule",
+        "body": "Only the board a screen is about gets the lift shadow. Supporting panels are flat flap black with a bezel edge.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** keep topic rows in prerequisite order with their permanent two-digit numbers; change only status and mastery cells.",
+      "**Do** put amber (#ffb000) on exactly one action per screen, with flap-black (#0b0b0d) text on it.",
+      "**Do** set board data, labels and buttons in condensed Archivo caps (62% width, 0.08em tracking) and every reason in normal-width sentence case.",
+      "**Do** edge boards in bezel steel (#5b5e63) and rule their rows in the darker inner rule (#44474d).",
+      "**Do** cascade a flap cell only when its value changed, and render it settled under reduced motion.",
+      "**Do** keep the table semantic and give every flap group a screen-reader text twin."
+    ],
+    "donts": [
+      "**Don't** build a white dashboard of cards and progress bars; this world is a dark board of fixed rows.",
+      "**Don't** use signal green for anything but mastery, the mastered count, the advanced level and correct answers.",
+      "**Don't** use rail-line colours outside topic identity (the In-progress status word is the one exception in the build).",
+      "**Don't** render status as pills or badges; status is a lit word in a column.",
+      "**Don't** round corners past 6px or add shadows to supporting panels.",
+      "**Don't** animate a board that has not changed."
+    ]
+  }
+}

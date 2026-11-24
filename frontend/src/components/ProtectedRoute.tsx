@@ -10,7 +10,7 @@ export function ProtectedRoute({ children, allowUnonboarded = false }: { childre
   const { user, loading } = useAuth();
   const location = useLocation();
 
-  if (loading) return <p className="p-8 text-slate-500">Loading…</p>;
+  if (loading) return <p className="p-8 text-muted">Loading…</p>;
   if (!user) return <Navigate to="/login" replace state={{ from: location.pathname }} />;
   if (!allowUnonboarded && user.role === "student" && user.level === null) return <Navigate to="/onboarding" replace />;
   return <>{children}</>;

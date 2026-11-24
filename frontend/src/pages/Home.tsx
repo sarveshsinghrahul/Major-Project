@@ -1,11 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { contentApi, type Topic } from "../api/client";
-import { MasteryBar, TopicStatusBadge } from "../components/TopicStatusBadge";
+import { contentApi } from "../api/client";
+import { DepartureBoard } from "../components/DepartureBoard";
+import { FlapText, btn } from "../components/ui";
 import { useAuth } from "../store/auth";
 
-// Interim dashboard: shows the subject roadmap with the learner's mastery until
-// the recommendation engine and full dashboard are built.
+function BoardFact({ label, value, tone = "text-ink", memoryKey }: { label: string; value: string; tone?: string; memoryKey: string }) {
+  return (
+    <div>
+      <dt className="board-type text-[12px] font-semibold text-muted">{label}</dt>
+      <dd className={`mt-1.5 text-[22px] font-bold ${tone}`}>
+        <FlapText text={value} memoryKey={memoryKey} />
+      </dd>
+    </div>
+  );
+}
+
+// The roadmap as a departures board: topic rows never move, only their status and mastery change.
 export function HomePage() {
   const { user } = useAuth();
   const subjects = useQuery({ queryKey: ["subjects"], queryFn: contentApi.subjects });
@@ -21,77 +32,54 @@ export function HomePage() {
     enabled: Boolean(subject),
   });
 
-  const topicById = new Map<number, Topic>((topics.data ?? []).map((t) => [t.id, t]));
+  const minutes = new Map<number, number>((topics.data ?? []).map((t) => [t.id, t.est_minutes]));
   const ready = mastery.data?.filter((t) => t.status === "available") ?? [];
   const masteredCount = mastery.data?.filter((t) => t.status === "mastered").length ?? 0;
+  const total = mastery.data?.length ?? 0;
+  const memory = `u${user?.id ?? 0}`;
 
   return (
-    <div className="space-y-6">
-      <section className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-semibold">Welcome back, {user?.name}</h1>
-          <p className="mt-1 text-slate-600">
-            {user?.level ? (
-              <>
-                Level: <span className="font-medium capitalize">{user.level}</span> · {masteredCount} of{" "}
-                {mastery.data?.length ?? 0} topics mastered
-              </>
-            ) : (
-              "Finish onboarding to get your personalized path."
-            )}
-          </p>
-        </div>
+    <div>
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <h1 className="board-type text-[34px] font-bold leading-none text-ink md:text-title">Welcome back, {user?.name}</h1>
         {user?.level && (
-          <Link to="/onboarding" className="text-sm font-medium text-indigo-600 hover:underline">
+          <Link to="/onboarding" className={btn.secondary}>
             View diagnostic results
           </Link>
         )}
-      </section>
+      </div>
 
-      {subjects.isError && <p className="text-red-700">Could not load subjects: {subjects.error.message}</p>}
-
-      {ready.length > 0 && (
-        <section className="rounded-xl border border-indigo-100 bg-indigo-50/60 p-5">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-indigo-700">Ready to study</h2>
-          <p className="mt-1 text-slate-700">{ready.map((t) => t.name).join(" · ")}</p>
-          <p className="mt-1 text-xs text-slate-500">Personalized recommendations and a weekly schedule are coming next.</p>
-        </section>
+      {user?.level ? (
+        <dl className="mt-6 grid grid-cols-2 gap-5 rounded-lg border border-bezel bg-surface p-5 sm:grid-cols-3">
+          <BoardFact label="Level" value={user.level} memoryKey={`${memory}.level`} />
+          <BoardFact
+            label="Mastered"
+            value={`${String(masteredCount).padStart(2, "0")}/${total}`}
+            tone="text-success"
+            memoryKey={`${memory}.mastered`}
+          />
+          <div className="col-span-2 sm:col-span-1">
+            <BoardFact label="Ready now" value={ready[0]?.name ?? "None"} tone="text-primary" memoryKey={`${memory}.ready`} />
+          </div>
+        </dl>
+      ) : (
+        <p className="mt-3 text-muted">Finish onboarding to get your personalized path.</p>
       )}
 
-      {subject && (
-        <section className="rounded-xl border border-slate-200 bg-white p-6">
-          <h2 className="text-lg font-semibold">{subject.name}</h2>
-          <p className="mb-4 text-sm text-slate-600">{subject.description}</p>
-          {mastery.isLoading && <p className="text-slate-500">Loading topics…</p>}
-          <ol className="space-y-2">
-            {mastery.data?.map((m, i) => {
-              const t = topicById.get(m.topic_id);
-              return (
-                <li
-                  key={m.topic_id}
-                  className={`flex flex-col gap-2 rounded-lg border border-slate-100 p-3 sm:flex-row sm:items-center ${
-                    m.status === "locked" ? "opacity-60" : ""
-                  }`}
-                >
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-indigo-50 text-xs font-semibold text-indigo-700">
-                    {i + 1}
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <p className="font-medium">{m.name}</p>
-                      <TopicStatusBadge status={m.status} />
-                    </div>
-                    <p className="text-xs text-slate-500">
-                      {t && `~${t.est_minutes} min · difficulty ${t.difficulty}/5 · `}
-                      {m.reason}
-                    </p>
-                  </div>
-                  <MasteryBar value={m.mastery} />
-                </li>
-              );
-            })}
-          </ol>
-        </section>
+      {subjects.isError && <p className="mt-6 text-danger">Could not load subjects: {subjects.error.message}</p>}
+      {subject && mastery.isLoading && <p className="mt-8 text-muted">Loading topics…</p>}
+
+      {subject && mastery.data && (
+        <div className="mt-8">
+          <DepartureBoard
+            id="roadmap-h"
+            title="Roadmap"
+            note={`${subject.name} · topics open when every prerequisite reaches 60%.`}
+            rows={mastery.data}
+            minutes={minutes}
+            memory={memory}
+          />
+        </div>
       )}
     </div>
   );

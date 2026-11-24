@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import type { AnswerIn, QuizQuestion } from "../api/client";
+import { btn } from "./ui";
 
 interface Draft {
   chosen: number | null;
@@ -71,6 +72,18 @@ export function QuizPlayer({
     setDrafts(withElapsed(option));
   }
 
+  // Arrow keys move the choice between options, as in a native radio group.
+  function moveChoice(e: KeyboardEvent<HTMLDivElement>) {
+    const step = e.key === "ArrowDown" || e.key === "ArrowRight" ? 1 : e.key === "ArrowUp" || e.key === "ArrowLeft" ? -1 : 0;
+    if (!step) return;
+    e.preventDefault();
+    const radios = Array.from(e.currentTarget.querySelectorAll<HTMLButtonElement>("[role=radio]"));
+    const at = radios.indexOf(document.activeElement as HTMLButtonElement);
+    const next = radios[(at + step + radios.length) % radios.length];
+    next.focus();
+    next.click();
+  }
+
   function go(delta: number) {
     if (draft) setDrafts(withElapsed(draft.chosen));
     setIndex((i) => Math.min(Math.max(i + delta, 0), questions.length - 1));
@@ -90,20 +103,20 @@ export function QuizPlayer({
   return (
     <div className="space-y-6">
       <div>
-        <div className="mb-1 flex justify-between text-sm text-slate-500">
+        <div className="board-type mb-2 flex justify-between text-[14px] font-semibold text-muted">
           <span>
             Question {index + 1} of {questions.length}
           </span>
           <span>{answeredCount} answered</span>
         </div>
-        <div className="h-2 overflow-hidden rounded-full bg-slate-100" role="progressbar" aria-valuenow={answeredCount} aria-valuemax={questions.length}>
-          <div className="h-full bg-indigo-500 transition-all" style={{ width: `${(answeredCount / questions.length) * 100}%` }} />
+        <div className="h-1.5 overflow-hidden rounded-full bg-white/[0.08]" role="progressbar" aria-label="Questions answered" aria-valuemin={0} aria-valuenow={answeredCount} aria-valuemax={questions.length}>
+          <div className="h-full rounded-full bg-primary transition-[width] motion-reduce:transition-none" style={{ width: `${(answeredCount / questions.length) * 100}%` }} />
         </div>
       </div>
 
-      <div className="rounded-xl border border-slate-200 bg-white p-6">
-        <h2 className="mb-4 text-lg font-medium">{question.text}</h2>
-        <div className="space-y-2" role="radiogroup" aria-label="Options">
+      <div className="rounded-lg border border-bezel bg-surface p-6 md:p-8">
+        <h2 className="mb-5 text-h3 text-ink">{question.text}</h2>
+        <div className="space-y-2" role="radiogroup" aria-label="Options" onKeyDown={moveChoice}>
           {question.options.map((option, i) => {
             const selected = draft?.chosen === i;
             return (
@@ -112,11 +125,11 @@ export function QuizPlayer({
                 role="radio"
                 aria-checked={selected}
                 onClick={() => choose(i)}
-                className={`w-full rounded-lg border px-4 py-3 text-left transition ${
-                  selected ? "border-indigo-500 bg-indigo-50 ring-1 ring-indigo-500" : "border-slate-200 hover:bg-slate-50"
+                className={`flex w-full items-center rounded-md border px-4 py-3 text-left transition-colors ${
+                  selected ? "border-primary bg-primary-soft shadow-[inset_0_0_0_1px_#ffb000]" : "border-hairline hover:bg-canvas"
                 }`}
               >
-                <span className="mr-3 font-semibold text-slate-400">{String.fromCharCode(65 + i)}</span>
+                <span className="mr-3 flex h-6 w-6 shrink-0 items-center justify-center rounded-sm bg-white/[0.06] text-xs font-semibold text-muted">{String.fromCharCode(65 + i)}</span>
                 {option}
               </button>
             );
@@ -126,8 +139,8 @@ export function QuizPlayer({
               role="radio"
               aria-checked={draft !== undefined && draft.chosen === null}
               onClick={() => choose(null)}
-              className={`w-full rounded-lg border border-dashed px-4 py-3 text-left text-slate-500 transition ${
-                draft !== undefined && draft.chosen === null ? "border-slate-500 bg-slate-50" : "border-slate-300 hover:bg-slate-50"
+              className={`w-full rounded-md border border-dashed px-4 py-3 text-left text-muted transition-colors ${
+                draft !== undefined && draft.chosen === null ? "border-ink-2 bg-white/[0.05] text-ink" : "border-hairline hover:border-muted"
               }`}
             >
               I don't know this yet
@@ -140,7 +153,7 @@ export function QuizPlayer({
         <button
           onClick={() => go(-1)}
           disabled={index === 0}
-          className="rounded-md px-4 py-2 text-slate-600 hover:bg-slate-100 disabled:invisible"
+          className={btn.utility}
         >
           Back
         </button>
@@ -148,7 +161,7 @@ export function QuizPlayer({
           <button
             onClick={submit}
             disabled={!draft || submitting}
-            className="rounded-md bg-indigo-600 px-5 py-2 font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+            className={btn.primary}
           >
             {submitting ? "Submitting…" : "Submit"}
           </button>
@@ -156,7 +169,7 @@ export function QuizPlayer({
           <button
             onClick={() => go(1)}
             disabled={!draft}
-            className="rounded-md bg-indigo-600 px-5 py-2 font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+            className={btn.primary}
           >
             Next
           </button>
